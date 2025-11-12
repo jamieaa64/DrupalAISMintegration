@@ -39,6 +39,8 @@
         "drupal/drupal_cms_seo_tools": "^1.2",
         "drupal/drupal_cms_starter": "^1.2",
         "drupal/recipe_installer_kit": "^1-alpha6@alpha",
+        "drupal/sm": "^0.1.1",
+        "drupal/sm_transport_doctrine": "^0.0.2",
         "drupal/webform": "@beta"
     },
     "require-dev": {
@@ -56,7 +58,8 @@
             "drupal/core-project-message": true,
             "drupal/core-recipe-unpack": true,
             "php-http/discovery": true,
-            "drupal/core-vendor-hardening": true
+            "drupal/core-vendor-hardening": true,
+            "symfony/runtime": true
         },
         "bin-dir": "vendor/bin",
         "sort-packages": true,
