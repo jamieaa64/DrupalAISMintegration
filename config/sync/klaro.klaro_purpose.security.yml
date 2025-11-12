@@ -1,0 +1,10 @@
+uuid: caded398-fbbb-42dc-8024-25102ef23148
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: viRP54gfVbiAJggsHB02B_iBsSqhc8KLC7lngFFBP5Q
+id: security
+label: Security
+description: ''
+weight: 4
