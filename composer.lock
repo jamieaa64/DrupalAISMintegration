@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2c2fa8982e029bb92ddd8b1ae6dc4fc",
+    "content-hash": "8c19965c2bcdb19a249928bf87a2be49",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2988,6 +2988,63 @@
             "homepage": "https://www.drupal.org/project/autosave_form",
             "support": {
                 "source": "https://git.drupalcode.org/project/autosave_form"
+            }
+        },
+        {
+            "name": "drupal/batch_messenger",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/batch_messenger.git",
+                "reference": "1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/batch_messenger-1.1.1.zip",
+                "reference": "1.1.1",
+                "shasum": "4e129185397a59cdb4db20a056849f128d9acf32"
+            },
+            "require": {
+                "drupal/core": "^11.1",
+                "drupal/sm": "^0.2@beta",
+                "php": ">=8.2",
+                "thecodingmachine/safe": "^2 || ^3"
+            },
+            "require-dev": {
+                "composer/installers": "^2",
+                "drupal/core-dev": "^11.1",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.12.7",
+                "phpstan/phpstan-deprecation-rules": "*",
+                "phpstan/phpstan-phpunit": "1.4.x-dev",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "previousnext/coding-standard": "^1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.1",
+                    "datestamp": "1757071617",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "dpi",
+                    "homepage": "https://www.drupal.org/user/81431"
+                }
+            ],
+            "description": "Batch Messenger.",
+            "homepage": "https://www.drupal.org/project/batch_messenger",
+            "support": {
+                "source": "https://git.drupalcode.org/project/batch_messenger"
             }
         },
         {
@@ -8015,17 +8072,17 @@
         },
         {
             "name": "drupal/sm",
-            "version": "0.1.1",
+            "version": "0.2.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/sm.git",
-                "reference": "0.1.1"
+                "reference": "0.2.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/sm-0.1.1.zip",
-                "reference": "0.1.1",
-                "shasum": "e63966e8e951e96b4566012d226eb569303d4efc"
+                "url": "https://ftp.drupal.org/files/projects/sm-0.2.0-beta1.zip",
+                "reference": "0.2.0-beta1",
+                "shasum": "fb0c06e5af63598b2c614124ebd2dbcc3e0bd2c5"
             },
             "require": {
                 "drupal/core": "^10.2 || ^11.0",
@@ -8038,17 +8095,14 @@
                 "composer/installers": "^2",
                 "drupal/coder": "^8.3.25",
                 "drupal/core-dev": "^10.2 || ^11.0",
-                "drupal/symfony_messenger_doctrine": "*",
                 "mockery/mockery": "^1.5",
                 "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "^1.11",
+                "phpstan/phpstan": "^1.12.7",
                 "phpstan/phpstan-deprecation-rules": "*",
                 "phpstan/phpstan-phpunit": "1.4.x-dev",
                 "phpstan/phpstan-strict-rules": "^1.5",
-                "previousnext/coding-standard": "^1"
-            },
-            "suggest": {
-                "drupal/sm_transport_doctrine": "Drupal Symfony Messenger Doctrine transport"
+                "previousnext/coding-standard": "^1",
+                "symfony/rate-limiter": "^6.2 || ^7"
             },
             "bin": [
                 "bin/sm"
@@ -8056,11 +8110,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "0.1.1",
-                    "datestamp": "1730219486",
+                    "version": "0.2.0-beta1",
+                    "datestamp": "1752263561",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -8078,6 +8132,84 @@
             "homepage": "https://www.drupal.org/project/sm",
             "support": {
                 "source": "https://git.drupalcode.org/project/sm"
+            }
+        },
+        {
+            "name": "drupal/sm_scheduler",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sm_scheduler.git",
+                "reference": "0.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sm_scheduler-0.0.3.zip",
+                "reference": "0.0.3",
+                "shasum": "d4e4d1875d1f3433a014b21885bb7dd5c638b0ea"
+            },
+            "require": {
+                "drupal/core": ">=10.1",
+                "php": ">=8.1",
+                "symfony/scheduler": "^6.3 || ^7"
+            },
+            "require-dev": {
+                "composer/installers": "^2",
+                "cweagans/composer-patches": "^1.7",
+                "drupal/core-dev": "^10.1",
+                "drupal/sm": "^0.0.1",
+                "micheh/phpcs-gitlab": "^1.1",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.11",
+                "phpstan/phpstan-deprecation-rules": "*",
+                "phpstan/phpstan-phpunit": "1.4.x-dev",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": ">=9",
+                "previousnext/coding-standard": "^0.1.2"
+            },
+            "suggest": {
+                "drupal/sm": "Integrates Symfony Messenger with Drupal."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "0.0.3",
+                    "datestamp": "1724150678",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "enable-patching": true,
+                "patches-file": "composer.patches.json",
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal-scaffold": {
+                    "locations": {
+                        "web-root": "web/"
+                    }
+                },
+                "installer-paths": {
+                    "web/core": [
+                        "type:drupal-core"
+                    ]
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "dpi",
+                    "homepage": "https://www.drupal.org/user/81431"
+                }
+            ],
+            "description": "Scheduler for Symfony Messenger.",
+            "homepage": "https://www.drupal.org/project/sm_scheduler",
+            "support": {
+                "source": "https://git.drupalcode.org/project/sm_scheduler"
             }
         },
         {
@@ -15177,6 +15309,91 @@
             "time": "2025-09-11T15:31:28+00:00"
         },
         {
+            "name": "symfony/scheduler",
+            "version": "v7.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/scheduler.git",
+                "reference": "e44f8b0907fdfb6f5126c00ab02f0e08de9014d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/scheduler/zipball/e44f8b0907fdfb6f5126c00ab02f0e08de9014d6",
+                "reference": "e44f8b0907fdfb6f5126c00ab02f0e08de9014d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/clock": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "dragonmantank/cron-expression": "^3.1",
+                "symfony/cache": "^6.4|^7.0",
+                "symfony/console": "^6.4|^7.0",
+                "symfony/dependency-injection": "^6.4|^7.0",
+                "symfony/event-dispatcher": "^6.4|^7.0",
+                "symfony/lock": "^6.4|^7.0",
+                "symfony/messenger": "^6.4|^7.0",
+                "symfony/serializer": "^6.4|^7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Scheduler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Rabochiy",
+                    "email": "upyx.00@gmail.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides scheduling through Symfony Messenger",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "cron",
+                "schedule",
+                "scheduler"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/scheduler/tree/v7.3.5"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-09-29T08:38:43+00:00"
+        },
+        {
             "name": "symfony/serializer",
             "version": "v7.3.5",
             "source": {
@@ -15968,6 +16185,145 @@
             "time": "2025-09-27T09:00:46+00:00"
         },
         {
+            "name": "thecodingmachine/safe",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/safe.git",
+                "reference": "2cdd579eeaa2e78e51c7509b50cc9fb89a956236"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/2cdd579eeaa2e78e51c7509b50cc9fb89a956236",
+                "reference": "2cdd579eeaa2e78e51c7509b50cc9fb89a956236",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.4",
+                "phpstan/phpstan": "^2",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/special_cases.php",
+                    "generated/apache.php",
+                    "generated/apcu.php",
+                    "generated/array.php",
+                    "generated/bzip2.php",
+                    "generated/calendar.php",
+                    "generated/classobj.php",
+                    "generated/com.php",
+                    "generated/cubrid.php",
+                    "generated/curl.php",
+                    "generated/datetime.php",
+                    "generated/dir.php",
+                    "generated/eio.php",
+                    "generated/errorfunc.php",
+                    "generated/exec.php",
+                    "generated/fileinfo.php",
+                    "generated/filesystem.php",
+                    "generated/filter.php",
+                    "generated/fpm.php",
+                    "generated/ftp.php",
+                    "generated/funchand.php",
+                    "generated/gettext.php",
+                    "generated/gmp.php",
+                    "generated/gnupg.php",
+                    "generated/hash.php",
+                    "generated/ibase.php",
+                    "generated/ibmDb2.php",
+                    "generated/iconv.php",
+                    "generated/image.php",
+                    "generated/imap.php",
+                    "generated/info.php",
+                    "generated/inotify.php",
+                    "generated/json.php",
+                    "generated/ldap.php",
+                    "generated/libxml.php",
+                    "generated/lzf.php",
+                    "generated/mailparse.php",
+                    "generated/mbstring.php",
+                    "generated/misc.php",
+                    "generated/mysql.php",
+                    "generated/mysqli.php",
+                    "generated/network.php",
+                    "generated/oci8.php",
+                    "generated/opcache.php",
+                    "generated/openssl.php",
+                    "generated/outcontrol.php",
+                    "generated/pcntl.php",
+                    "generated/pcre.php",
+                    "generated/pgsql.php",
+                    "generated/posix.php",
+                    "generated/ps.php",
+                    "generated/pspell.php",
+                    "generated/readline.php",
+                    "generated/rnp.php",
+                    "generated/rpminfo.php",
+                    "generated/rrd.php",
+                    "generated/sem.php",
+                    "generated/session.php",
+                    "generated/shmop.php",
+                    "generated/sockets.php",
+                    "generated/sodium.php",
+                    "generated/solr.php",
+                    "generated/spl.php",
+                    "generated/sqlsrv.php",
+                    "generated/ssdeep.php",
+                    "generated/ssh2.php",
+                    "generated/stream.php",
+                    "generated/strings.php",
+                    "generated/swoole.php",
+                    "generated/uodbc.php",
+                    "generated/uopz.php",
+                    "generated/url.php",
+                    "generated/var.php",
+                    "generated/xdiff.php",
+                    "generated/xml.php",
+                    "generated/xmlrpc.php",
+                    "generated/yaml.php",
+                    "generated/yaz.php",
+                    "generated/zip.php",
+                    "generated/zlib.php"
+                ],
+                "classmap": [
+                    "lib/DateTime.php",
+                    "lib/DateTimeImmutable.php",
+                    "lib/Exceptions/",
+                    "generated/Exceptions/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+            "support": {
+                "issues": "https://github.com/thecodingmachine/safe/issues",
+                "source": "https://github.com/thecodingmachine/safe/tree/v3.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/OskarStark",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/shish",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/staabm",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-05-14T06:15:44+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "v2.3.0",
             "source": {
@@ -16222,6 +16578,7 @@
         "drupal/ai": 20,
         "drupal/ai_agents": 20,
         "drupal/recipe_installer_kit": 15,
+        "drupal/sm": 10,
         "drupal/webform": 10
     },
     "prefer-stable": true,
