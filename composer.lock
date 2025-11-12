@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7a1d5d43a03162629104495a6f74024",
+    "content-hash": "ec8d795a05f19f655bf13711b82f3f87",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2140,17 +2140,11 @@
         },
         {
             "name": "drupal/ai",
-            "version": "1.2.3",
+            "version": "dev-1.3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ai.git",
-                "reference": "1.2.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ai-1.2.3.zip",
-                "reference": "1.2.3",
-                "shasum": "9ceaf655acb9da4c1ab08d1cbac0a2292996fd5c"
+                "reference": "6a1fca87d05a5fdab3e703b7c3a7d21b3b9ddf28"
             },
             "require": {
                 "drupal/core": "^10.4 || ^11",
@@ -2176,12 +2170,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.3.x": "1.3.x-dev"
+                },
                 "drupal": {
-                    "version": "1.2.3",
-                    "datestamp": "1762955697",
+                    "version": "1.3.x-dev",
+                    "datestamp": "1762850854",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2251,17 +2248,11 @@
         },
         {
             "name": "drupal/ai_agents",
-            "version": "1.2.0",
+            "version": "dev-1.3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ai_agents.git",
-                "reference": "1.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ai_agents-1.2.0.zip",
-                "reference": "1.2.0",
-                "shasum": "a7c1b148dd88d2d790e90aaac5a4da00a1957f79"
+                "reference": "9502f73f218999de66050463f1182fa51c6c0714"
             },
             "require": {
                 "drupal/ai": "^1.2.0",
@@ -2278,12 +2269,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.3.x": "1.3.x-dev"
+                },
                 "drupal": {
-                    "version": "1.2.0",
-                    "datestamp": "1760354086",
+                    "version": "1.3.x-dev",
+                    "datestamp": "1762331702",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -15130,6 +15124,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "drupal/ai": 20,
+        "drupal/ai_agents": 20,
         "drupal/recipe_installer_kit": 15,
         "drupal/webform": 10
     },
