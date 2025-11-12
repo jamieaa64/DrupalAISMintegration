@@ -1,0 +1,11 @@
+name: Content Processor Demo
+type: module
+description: Demonstrates Symfony Messenger and Doctrine DBAL advantages over Drupal core alternatives.
+core_version_requirement: ^10.2 || ^11.0
+package: Custom
+dependencies:
+  - drupal:node
+  - sm:sm
+  - sm_transport_doctrine:sm_transport_doctrine
+  - batch_messenger:batch_messenger
+  - dbal:dbal
