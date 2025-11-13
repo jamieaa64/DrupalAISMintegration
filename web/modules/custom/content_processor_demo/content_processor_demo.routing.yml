@@ -1,0 +1,15 @@
+content_processor_demo.admin:
+  path: '/admin/config/system/content-processor-demo'
+  defaults:
+    _form: '\Drupal\content_processor_demo\Form\ContentProcessorForm'
+    _title: 'Content Processor Demo'
+  requirements:
+    _permission: 'administer site configuration'
+
+content_processor_demo.stats:
+  path: '/admin/reports/content-processor-stats'
+  defaults:
+    _controller: '\Drupal\content_processor_demo\Controller\StatsController::view'
+    _title: 'Content Statistics'
+  requirements:
+    _permission: 'access site reports'

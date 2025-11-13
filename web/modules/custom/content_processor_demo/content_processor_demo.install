@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for Content Processor Demo module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ */
+function content_processor_demo_install(): void {
+  // Ensure the analysis table is created on install.
+  $statsService = \Drupal::service('content_processor_demo.stats');
+  $statsService->ensureTable();
+
+  \Drupal::messenger()->addStatus(t('Content Processor Demo installed successfully. Visit the <a href="@url">configuration page</a> to start processing content.', [
+    '@url' => '/admin/config/system/content-processor-demo',
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function content_processor_demo_uninstall(): void {
+  // Drop the analysis table on uninstall.
+  $connection = \Drupal::service('dbal.connection');
+  $schemaManager = $connection->createSchemaManager();
+  $schema = $schemaManager->introspectSchema();
+
+  if ($schema->hasTable('content_processor_analysis')) {
+    $schemaManager->dropTable('content_processor_analysis');
+  }
+}

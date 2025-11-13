@@ -1,0 +1,5 @@
+services:
+  content_processor_demo.stats:
+    class: Drupal\content_processor_demo\Service\ContentStatsService
+    arguments:
+      - '@dbal_connection'
