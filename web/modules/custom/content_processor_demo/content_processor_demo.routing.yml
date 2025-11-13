@@ -6,6 +6,14 @@ content_processor_demo.admin:
   requirements:
     _permission: 'administer site configuration'
 
+content_processor_demo.generate:
+  path: '/demo/content-processor/generate'
+  defaults:
+    _form: '\Drupal\content_processor_demo\Form\ContentGeneratorForm'
+    _title: 'Generate Test Content'
+  requirements:
+    _permission: 'administer site configuration'
+
 content_processor_demo.stats:
   path: '/admin/reports/content-processor-stats'
   defaults:
