@@ -55,12 +55,12 @@ final class ContentGeneratorForm extends FormBase {
       '#type' => 'radios',
       '#title' => $this->t('Generation Method'),
       '#options' => [
-        'batch' => $this->t('Drupal Batch API (traditional approach)'),
-        'messenger' => $this->t('Symfony Messenger (modern async approach)'),
+        'batch' => $this->t('Drupal Batch API (synchronous with progress bar)'),
+        'messenger' => $this->t('Symfony Messenger (async message queue)'),
       ],
       '#default_value' => 'batch',
       '#required' => TRUE,
-      '#description' => $this->t('Choose how to generate the content. Batch API processes synchronously, while Messenger processes asynchronously.'),
+      '#description' => $this->t('Batch API processes synchronously. Messenger queues messages for async processing - run "drush messenger:consume" to process them.'),
     ];
 
     $form['count'] = [
@@ -148,7 +148,7 @@ final class ContentGeneratorForm extends FormBase {
     }
 
     $this->messenger()->addStatus(
-      $this->t('Dispatched @count messages to generate pages! Pages will be created asynchronously. Check back in a moment to see them.', [
+      $this->t('Dispatched @count messages to the queue! Run <code>ddev drush messenger:consume</code> to process them asynchronously and create the pages.', [
         '@count' => $count,
       ])
     );
