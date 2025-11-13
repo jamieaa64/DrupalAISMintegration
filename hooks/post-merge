@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# Git post-merge hook for DrupalAISMintegration
+# Automatically runs after 'git pull' to update the Drupal site
+#
+# This hook is installed by running: ./install-hooks.sh
+#
+
+echo ""
+echo "→ Post-merge hook: Updating Drupal site..."
+echo ""
+
+# Check if DDEV is running
+if ! ddev describe >/dev/null 2>&1; then
+  echo "⚠ DDEV is not running. Skipping automatic updates."
+  echo "  Run 'ddev start' and then './update.sh' manually."
+  exit 0
+fi
+
+# Run composer install if composer files changed
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet "composer.lock"; then
+  echo "→ Composer lock file changed, running composer install..."
+  ddev composer install
+fi
+
+# Run database updates
+echo "→ Running database updates..."
+ddev drush updb -y || echo "⚠ Database updates failed or none needed"
+
+# Import configuration if config files changed
+if git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet "^config/sync/"; then
+  echo "→ Configuration files changed, importing..."
+  ddev drush config:import -y || echo "⚠ Config import failed or no changes"
+fi
+
+# Always clear cache
+echo "→ Clearing cache..."
+ddev drush cr
+
+echo ""
+echo "✓ Post-merge updates complete!"
+echo ""
