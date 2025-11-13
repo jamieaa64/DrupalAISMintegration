@@ -85,7 +85,7 @@ final class ContentProcessorForm extends FormBase {
       '#type' => 'radios',
       '#title' => $this->t('Operation'),
       '#options' => [
-        'analyze' => $this->t('Analyze Content (count words, extract metadata)'),
+        'analyze' => $this->t('Analyze Basic Pages (count words, extract metadata)'),
         'update_stats' => $this->t('Update Statistics (type, status, timestamps)'),
         'generate_summary' => $this->t('Generate Summary (first 200 chars)'),
       ],
@@ -158,9 +158,10 @@ final class ContentProcessorForm extends FormBase {
       );
     }
     else {
-      // Batch mode - dispatch messages for all nodes.
+      // Batch mode - dispatch messages for all Basic Page nodes.
       $query = $this->entityTypeManager->getStorage('node')->getQuery();
       $query->accessCheck(FALSE);
+      $query->condition('type', 'page');
       $nids = $query->execute();
 
       $count = 0;
@@ -174,7 +175,7 @@ final class ContentProcessorForm extends FormBase {
       }
 
       $this->messenger()->addStatus(
-        $this->t('Dispatched @count messages! Content will be processed asynchronously. Check the <a href="@url">statistics page</a> to see results.', [
+        $this->t('Dispatched @count messages for Basic Pages! Content will be processed asynchronously. Check the <a href="@url">statistics page</a> to see results.', [
           '@count' => $count,
           '@url' => '/admin/reports/content-processor-stats',
         ])

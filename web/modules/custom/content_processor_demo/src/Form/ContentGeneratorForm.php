@@ -29,7 +29,7 @@ final class ContentGeneratorForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['description'] = [
       '#type' => 'markup',
-      '#markup' => '<p>' . $this->t('Generate test content to demonstrate batch processing.') . '</p>',
+      '#markup' => '<p>' . $this->t('Generate test Basic Pages to demonstrate batch processing.') . '</p>',
     ];
 
     $form['method'] = [
@@ -46,12 +46,12 @@ final class ContentGeneratorForm extends FormBase {
 
     $form['count'] = [
       '#type' => 'number',
-      '#title' => $this->t('Number of Articles'),
+      '#title' => $this->t('Number of Pages'),
       '#default_value' => 100,
       '#min' => 1,
       '#max' => 10000,
       '#required' => TRUE,
-      '#description' => $this->t('Number of test articles to generate. Default is 100 for testing.'),
+      '#description' => $this->t('Number of test Basic Pages to generate. Default is 100 for testing.'),
     ];
 
     $form['actions'] = [
@@ -86,11 +86,11 @@ final class ContentGeneratorForm extends FormBase {
    * Generate content using Drupal Batch API.
    *
    * @param int $count
-   *   Number of articles to generate.
+   *   Number of pages to generate.
    */
   private function generateWithBatch(int $count): void {
     $batch = [
-      'title' => $this->t('Generating @count articles...', ['@count' => $count]),
+      'title' => $this->t('Generating @count pages...', ['@count' => $count]),
       'operations' => [],
       'finished' => [self::class, 'batchFinished'],
       'progress_message' => $this->t('Processed @current out of @total.'),
@@ -104,7 +104,7 @@ final class ContentGeneratorForm extends FormBase {
       $start = $i * $chunk_size;
       $end = min(($i + 1) * $chunk_size, $count);
       $batch['operations'][] = [
-        [self::class, 'generateArticlesBatch'],
+        [self::class, 'generatePagesBatch'],
         [$start, $end],
       ];
     }
@@ -116,18 +116,18 @@ final class ContentGeneratorForm extends FormBase {
    * Generate content using Symfony Messenger.
    *
    * @param int $count
-   *   Number of articles to generate.
+   *   Number of pages to generate.
    */
   private function generateWithMessenger(int $count): void {
     // TODO: Implement Symfony Messenger approach.
-    // This would dispatch messages to create articles asynchronously.
+    // This would dispatch messages to create pages asynchronously.
     $this->messenger()->addWarning(
       $this->t('Symfony Messenger generation not yet implemented. Use Batch API for now.')
     );
   }
 
   /**
-   * Batch operation to generate articles.
+   * Batch operation to generate pages.
    *
    * This is a static method that can be called by the Batch API.
    *
@@ -138,7 +138,7 @@ final class ContentGeneratorForm extends FormBase {
    * @param array $context
    *   Batch context array.
    */
-  public static function generateArticlesBatch(int $start, int $end, array &$context): void {
+  public static function generatePagesBatch(int $start, int $end, array &$context): void {
     if (!isset($context['results']['created'])) {
       $context['results']['created'] = 0;
     }
@@ -146,8 +146,8 @@ final class ContentGeneratorForm extends FormBase {
     for ($i = $start; $i < $end; $i++) {
       try {
         $node = Node::create([
-          'type' => 'article',
-          'title' => 'Test Article ' . ($i + 1) . ' - ' . date('Y-m-d H:i:s'),
+          'type' => 'page',
+          'title' => 'Test Page ' . ($i + 1) . ' - ' . date('Y-m-d H:i:s'),
           'field_content' => [
             'value' => self::generateRandomContent(),
             'format' => 'content_format',
@@ -157,14 +157,14 @@ final class ContentGeneratorForm extends FormBase {
         $node->save();
         $context['results']['created']++;
 
-        $context['message'] = t('Created article @num of @total', [
+        $context['message'] = t('Created page @num of @total', [
           '@num' => $context['results']['created'],
           '@total' => $end,
         ]);
       }
       catch (\Exception $e) {
         \Drupal::logger('content_processor_demo')->error(
-          'Failed to create article: @message',
+          'Failed to create page: @message',
           ['@message' => $e->getMessage()]
         );
       }
@@ -186,17 +186,17 @@ final class ContentGeneratorForm extends FormBase {
 
     if ($success) {
       $created = $results['created'] ?? 0;
-      $messenger->addStatus(t('Successfully created @count articles using Batch API.', [
+      $messenger->addStatus(t('Successfully created @count Basic Pages using Batch API.', [
         '@count' => $created,
       ]));
     }
     else {
-      $messenger->addError(t('An error occurred while generating articles.'));
+      $messenger->addError(t('An error occurred while generating pages.'));
     }
   }
 
   /**
-   * Generate random content for articles.
+   * Generate random content for pages.
    *
    * @return string
    *   Random lorem ipsum style content.
