@@ -61,14 +61,27 @@ final class MessengerConsumeCommands extends DrushCommands {
     }
     $this->output()->writeln('');
 
-    // Get the message receiver from container
-    try {
-      $receiver = \Drupal::service('messenger.receiver.doctrine');
+    // Try to get receiver via receiver locator
+    $receiver = NULL;
+    $receiverNames = ['doctrine', 'default', 'async', 'doctrine.default'];
+
+    foreach ($receiverNames as $receiverName) {
+      try {
+        $receiverLocator = \Drupal::service('messenger.receiver_locator');
+        if ($receiverLocator->has($receiverName)) {
+          $receiver = $receiverLocator->get($receiverName);
+          $this->output()->writeln(sprintf('<comment>Using receiver: %s</comment>', $receiverName));
+          break;
+        }
+      }
+      catch (\Exception $e) {
+        continue;
+      }
     }
-    catch (\Exception $e) {
-      $this->output()->writeln('<error>Failed to get message receiver: ' . $e->getMessage() . '</error>');
-      $this->output()->writeln('<info>Trying to process via queue runner...</info>');
-      $this->processViaQueueRunner($limit);
+
+    if (!$receiver) {
+      $this->output()->writeln('<comment>No message receiver found. Trying database queue...</comment>');
+      $this->processViaDatabase($limit);
       return;
     }
 
@@ -120,6 +133,67 @@ final class MessengerConsumeCommands extends DrushCommands {
 
     $this->output()->writeln('');
     $this->output()->writeln(sprintf('<info>Finished. Processed %d message(s).</info>', $processed));
+  }
+
+  /**
+   * Process messages directly from database table.
+   */
+  private function processViaDatabase(int $limit): void {
+    $connection = \Drupal::database();
+    $tableNames = ['messenger', 'symfony_messenger', 'messenger_messages'];
+
+    foreach ($tableNames as $tableName) {
+      try {
+        if (!$connection->schema()->tableExists($tableName)) {
+          continue;
+        }
+
+        $query = $connection->select($tableName, 'm')
+          ->fields('m')
+          ->range(0, $limit);
+        $results = $query->execute()->fetchAll();
+
+        if (empty($results)) {
+          continue;
+        }
+
+        $this->output()->writeln(sprintf('<info>Found %d messages in table: %s</info>', count($results), $tableName));
+
+        $processed = 0;
+        foreach ($results as $row) {
+          try {
+            // Unserialize the message body
+            $body = unserialize($row->body);
+
+            if (is_object($body)) {
+              $this->messageBus->dispatch($body);
+
+              // Delete the processed message
+              $connection->delete($tableName)
+                ->condition('id', $row->id)
+                ->execute();
+
+              $processed++;
+              $messageName = get_class($body);
+              $this->output()->writeln(sprintf('<info>✓ Processed message %d: %s</info>', $processed, $messageName));
+            }
+          }
+          catch (\Exception $e) {
+            $this->output()->writeln(sprintf('<error>✗ Error processing message ID %s: %s</error>', $row->id ?? 'unknown', $e->getMessage()));
+          }
+        }
+
+        $this->output()->writeln('');
+        $this->output()->writeln(sprintf('<info>Processed %d messages from table.</info>', $processed));
+        return;
+      }
+      catch (\Exception $e) {
+        continue;
+      }
+    }
+
+    $this->output()->writeln('<comment>No messages found in database tables.</comment>');
+    $this->processViaQueueRunner($limit);
   }
 
   /**
