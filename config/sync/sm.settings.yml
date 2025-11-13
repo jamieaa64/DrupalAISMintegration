@@ -1,0 +1,11 @@
+transports:
+  doctrine:
+    dsn: 'doctrine://default'
+    options:
+      table_name: messenger_messages
+      queue_name: default
+      auto_setup: true
+routing:
+  'Drupal\content_processor_demo\Message\GeneratePageMessage': doctrine
+  'Drupal\content_processor_demo\Message\ProcessContentMessage': doctrine
+failure_transport: null
