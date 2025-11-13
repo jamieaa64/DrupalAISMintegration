@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\content_processor_demo\Form;
 
+use Drupal\content_processor_demo\Message\GeneratePageMessage;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Form to generate test content.
@@ -15,6 +18,22 @@ use Drupal\node\Entity\Node;
  * vs Symfony Messenger approach.
  */
 final class ContentGeneratorForm extends FormBase {
+
+  /**
+   * Constructs a ContentGeneratorForm.
+   */
+  public function __construct(
+    private readonly MessageBusInterface $messageBus,
+  ) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get('messenger.default_bus'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -119,10 +138,19 @@ final class ContentGeneratorForm extends FormBase {
    *   Number of pages to generate.
    */
   private function generateWithMessenger(int $count): void {
-    // TODO: Implement Symfony Messenger approach.
-    // This would dispatch messages to create pages asynchronously.
-    $this->messenger()->addWarning(
-      $this->t('Symfony Messenger generation not yet implemented. Use Batch API for now.')
+    // Dispatch messages for async processing.
+    // Each message will be handled independently by GeneratePageMessageHandler.
+    for ($i = 1; $i <= $count; $i++) {
+      $message = new GeneratePageMessage(
+        pageNumber: $i,
+      );
+      $this->messageBus->dispatch($message);
+    }
+
+    $this->messenger()->addStatus(
+      $this->t('Dispatched @count messages to generate pages! Pages will be created asynchronously. Check back in a moment to see them.', [
+        '@count' => $count,
+      ])
     );
   }
 
