@@ -64,3 +64,18 @@ ls -la .git/hooks/post-merge
 ```
 
 If not, run `./install-hooks.sh` again.
+
+### Config import fails
+If you see errors like "You have requested a non-existent service", try:
+```bash
+ddev drush cr
+ddev drush config:import -y
+```
+
+### Broken article nodes
+If you created article nodes before the article content type was properly configured, you may see errors when viewing them. Delete them with:
+```bash
+./delete-broken-articles.sh
+```
+
+Then generate new articles properly at `/demo/content-processor/generate`.

@@ -25,7 +25,7 @@ function content_processor_demo_install(): void {
  */
 function content_processor_demo_uninstall(): void {
   // Drop the analysis table on uninstall.
-  $connection = \Drupal::service('dbal.connection');
+  $connection = \Drupal::service('dbal_connection');
   $schemaManager = $connection->createSchemaManager();
   $schema = $schemaManager->introspectSchema();
 
