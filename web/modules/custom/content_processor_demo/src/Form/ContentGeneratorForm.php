@@ -148,9 +148,9 @@ final class ContentGeneratorForm extends FormBase {
         $node = Node::create([
           'type' => 'article',
           'title' => 'Test Article ' . ($i + 1) . ' - ' . date('Y-m-d H:i:s'),
-          'body' => [
+          'field_content' => [
             'value' => self::generateRandomContent(),
-            'format' => 'basic_html',
+            'format' => 'content_format',
           ],
           'status' => 1,
         ]);
